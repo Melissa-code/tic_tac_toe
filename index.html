@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>TIC TAC TOE</title>
+</head>
+
+<body>
+    <table>
+        <h1>TIC TAC TOE</h1>
+        <tr>
+            <td class="cell" id="cellule0" onclick="caseJouee(0)"></td>
+            <td class="cell" id="cellule1" onclick="caseJouee(1)"></td>
+            <td class="cell" id="cellule2" onclick="caseJouee(2)"></td>
+        </tr>
+        <tr>
+            <td class="cell" id="cellule3" onclick="caseJouee(3)"></td>
+            <td class="cell" id="cellule4" onclick="caseJouee(4)"></td>
+            <td class="cell" id="cellule5" onclick="caseJouee(5)"></td>
+        </tr>
+        <tr>
+            <td class="cell" id="cellule6" onclick="caseJouee(6)"></td>
+            <td class="cell" id="cellule7" onclick="caseJouee(7)"></td>
+            <td class="cell" id="cellule8" onclick="caseJouee(8)"></td>
+        </tr>
+    </table>
+
+    <script>
+        var tour = 'X';
+        var matrice = [ [' ',' ',' '],
+                        [' ',' ',' '],
+                        [' ',' ',' ']
+                    ]; 
+        
+        /**
+         * Affiche X ou O sur la case 
+         **/
+        function afficheTour(i, j, tour) {
+            //let i = 1;
+            //let j = 2;
+            let cell = i * 3 + j;
+            let id_cellule = 'cellule' + cell;
+
+            let case_ = document.getElementById(id_cellule);
+            case_.innerText = tour;
+
+            // devoir
+            // faire un traitement pour tout i, j de la matrice
+            // et mettre dans la case_ la valeur de matrice[i][j]
+        }
+
+        /**
+         * Après le tour change de joueur 
+         **/
+        function changeJoueur(tour) {
+            if (tour === 'X') {
+                return 'O'; 
+            } else {
+                return 'X'; 
+            }
+        }
+       
+        /**
+         * Enregistre dans la matrice le tour et change de joueur
+         **/
+        function caseJouee(cell) {
+            let i = Math.trunc(cell/3); 
+            let j = cell % 3;
+            // sachant l'indice i,j => matrice[i][j]= X/O selon le tour
+            console.log("indices de la case jouée:", i, j); 
+
+            // enregistre X ou O dans la matrice (array)
+            if (matrice[i][j] === ' ') {
+                matrice[i][j] = tour; 
+            }
+            console.log(matrice);
+
+            // Affiche le tour sur la case
+            afficheTour(i, j, tour);
+            tour = changeJoueur(tour); 
+        }
+
+    </script>
+</body>
+</html>
