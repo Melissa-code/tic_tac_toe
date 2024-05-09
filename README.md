@@ -46,21 +46,34 @@ A l'inverse si l'on connaît les indices i et j :
 - change de joueur après le tour 
 
 
-## 5. Vérifie chaque ligne pour afficher le gagnant 
+## 5. Vérifier chaque ligne pour afficher le gagnant 
 - Mise en place un compteur 
 - Parcours de la matrice et de chaque ligne 
 - Si une ligne contient 3 X  à la suite ou O, affiche le gagnant 
 
 
-## 6. Vérifie chaque colonne pour afficher le gagnant 
+## 6. Vérifier chaque colonne pour afficher le gagnant 
 - Mise en place un compteur 
 - Parcours de la matrice et de chaque colonne (inverse j et i dans les boucles for)
 - Si une colonne contient 3 X  à la suite ou O, affiche le gagnant 
 
 
-## 7. Vérifie les 2 diagonales pour afficher le gagnant 
+## 7. Vérifier les 2 diagonales pour afficher le gagnant 
 - Mise en place de 2 compteurs X et O 
 - Parcours de la matrice et de chaque ligne 
-- 1re diagonale: 00 11 22 => i,i (j = i) donc if (matrice[i][i] === "X")
-- 2e diagonale : 02 11 20 => i, 2-i (j = 2-i) donc if (matrice[i][2 - i] === "X") 
+- 1re diagonale: `00 11 22 => i,i (j = i) donc if (matrice[i][i] === "X")`
+- 2e diagonale : `02 11 20 => i, 2-i (j = 2-i) donc if (matrice[i][2 - i] === "X")`
 - Si une ligne contient 3 X  à la suite ou O, affiche le gagnant 
+
+
+## 8. Créer la function enregistrerCombinaisonsJouees(matrice) pour optimiser le code 
+- Enregistre les 8 combinaisons possible dans un tableau combinaisons 
+
+
+## 9. Créer la function afficherGagnant()
+- Vérifie si la combinaison "XXX" ou "OOO" (string) est dans combinaisons (array)
+- Si oui affiche un message annpnçant le gagnant 
+- Puis réinitialisation du jeu (vide la matrice et effece le tour sur les cases)
+
+
+

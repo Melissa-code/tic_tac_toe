@@ -10,6 +10,7 @@
   <body>
     <table>
       <h1>TIC TAC TOE</h1>
+      <div id="gagnant"></div>
       <tr>
         <td class="cell" id="cellule0" onclick="caseJouee(0)"></td>
         <td class="cell" id="cellule1" onclick="caseJouee(1)"></td>
@@ -59,6 +60,74 @@
       }
 
       /**
+       * Enregistre les 8 combinaisons jouées à partir de la matrice 
+       * dans array combinaisons 
+       **/
+       function enregistrerCombinaisonsJouees(matrice) {
+        let combinaisons = [];
+
+        // Enregistre les 3 lignes dans combinaisons[] 
+        for (let i = 0; i < matrice.length; i++) {
+          combinaisons.push(matrice[i].join(""));
+        }
+
+        // Enregistre les 3 colonnes dans combinaisons[]
+        for (let j = 0; j < matrice.length; j++) {
+          let colonne = "";
+          for (let i = 0; i < matrice.length; i++) {
+            colonne += matrice[i][j];
+          }
+          combinaisons.push(colonne);
+        }
+
+        // Enregistre les 2 diagonales dans combinaisons[]
+        let diagonale1 = "";
+        let diagonale2 = "";
+        for (let i = 0; i < matrice.length; i++) {
+          diagonale1 += matrice[i][i];
+          diagonale2 += matrice[i][2 - i];
+        }
+        combinaisons.push(diagonale1);
+        combinaisons.push(diagonale2);
+
+        return combinaisons;
+      }
+
+      /**
+       * Réinitialise le jeu 
+       * Vider la matrice 
+       * Effacer le tour X ou O sur les cases 
+       **/
+       function reinitialiserJeu() {
+        matrice = [
+          [" ", " ", " "],
+          [" ", " ", " "],
+          [" ", " ", " "],
+        ];
+        for (let i = 0; i < 9; i++) {
+          document.getElementById("cellule" + i).innerText = "";
+        }
+      }
+
+      /**
+       * Affiche le gagnant 
+       * Puis réinitilise le jeu à zéro 
+       * 
+       **/
+      function afficherGagnant(combinaisons, combinaison) {
+        if (combinaisons.includes(combinaison)) {
+          let symbole = combinaison.slice(0, -2);
+          divGagnant.innerText = `Le joueur ${symbole} a gagné!`;
+          
+          // Réinitilise le jeu à zero 
+          setTimeout(function() {
+            divGagnant.innerText = "";
+            reinitialiserJeu();
+          }, 2000);
+        } 
+      }
+
+      /**
        * Enregistre dans la matrice le tour et change de joueur
        **/
       function caseJouee(cell) {
@@ -77,107 +146,16 @@
         afficheTour(i, j, tour);
         tour = changeJoueur(tour);
 
-        verifieCaseLigne("X");
-        verifieCaseLigne("O");
-        verifieCaseColonne("X");
-        verifieCaseColonne("O");
-        verifieCaseDiagonale();
+        // Générer les combinaisons jouées à partir de la matrice
+        divGagnant = document.getElementById("gagnant"); 
+        let combinaisons = enregistrerCombinaisonsJouees(matrice);
+        console.log("Combinaisons jouées:", combinaisons);
+
+        // Vérifie si la chaîne "XXX" ou "OOO" existe dans le tableau combinaisons
+        afficherGagnant(combinaisons, "XXX") ;
+        afficherGagnant(combinaisons, "OOO") ;
       }
 
-      /**
-       * Vérifie la case (en ligne)
-       * compteur mis en place (ou mettre marqueur true/false)
-       **/
-      function verifieCaseLigne(symbole) {
-        for (let i = 0; i < matrice.length; i++) {
-          compteur = 0;
-
-          // Vérifie chaque ligne et incremente compteur si case case jouée X ou O
-          for (let j = 0; j < matrice[i].length; j++) {
-            if (matrice[i][j] === symbole) compteur++;
-          }
-          if (compteur === 3) {
-            console.log(symbole, " gagne");
-            alert(`le joueur ${symbole} a gagné !`)
-            return symbole;
-          } else return " ";
-        }
-      }
-
-      /**
-       * Vérifie la case (en colonne) 
-       * param X ou O 
-       **/
-      function verifieCaseColonne(symbole) {
-        // deplacement de colonne en colonne 
-        for (let j = 0; j < matrice.length; j++) {
-          compteur = 0;
-          // vérifie chaque case 
-          for (let i = 0; i < matrice[j].length; i++) {
-            if (matrice[i][j] === symbole) compteur++;
-          }
-          if (compteur === 3) {
-            console.log(symbole, " gagne");
-            alert(`le joueur ${symbole} a gagné !`)
-            return symbole;
-          } else return " ";
-        }
-      }
-
-      /**
-       * Vérifie chaque case (en diagonale) 
-       * 
-       **/
-      function verifieCaseDiagonale() {
-        compteurX = 0;
-        compteurO = 0;
-
-        // Vérifie la 1re diagonale 
-        // 00 11 22 => i,i (j = i)
-        for (let i = 0; i < matrice.length; i++) {
-          if (matrice[i][i] === "X") {
-            compteurX++;
-          } else if (matrice[i][i] === "O") {
-            compteurO++;
-          }
-        }
-        if (compteurX === 3) {
-          console.log("X gagne");
-          alert(`le joueur X a gagné !`)
-          return "X";
-        } else if (compteurO === 3) {
-          console.log("O gagne");
-          alert(`le joueur O a gagné !`)
-          return "O";
-        }
-
-        // Vérifie la diagonale inverse 
-        // 02 11 20 => i, 2-i (j = 2-i)
-        compteurX = 0;
-        compteurO = 0;
-        for (let i = 0; i < matrice.length; i++) {
-          if (matrice[i][2 - i] === "X") {
-            compteurX++;
-          } else if (matrice[i][2 - i] === "O") {
-            compteurO++;
-          }
-        }
-        if (compteurX === 3) {
-          console.log("X gagne");
-          alert(`le joueur X a gagné !`)
-          return "X";
-        } else if (compteurO === 3) {
-          console.log("O gagne");
-          alert(`le joueur O a gagné !`)
-          return "O";
-        }
-      }
-
-
-      //devoir : solution optimum
-      // combinaison = ["XOX","ligne2","ligne3","colone1","colone2","colone3","diag1","diag2"]
-      // if in_array("XXX",combinaison)
-      // if in_array("OOO",combinaison)
     </script>
   </body>
 </html>
