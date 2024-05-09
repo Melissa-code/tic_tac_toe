@@ -1,87 +1,184 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>TIC TAC TOE</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <table>
-        <h1>TIC TAC TOE</h1>
-        <tr>
-            <td class="cell" id="cellule0" onclick="caseJouee(0)"></td>
-            <td class="cell" id="cellule1" onclick="caseJouee(1)"></td>
-            <td class="cell" id="cellule2" onclick="caseJouee(2)"></td>
-        </tr>
-        <tr>
-            <td class="cell" id="cellule3" onclick="caseJouee(3)"></td>
-            <td class="cell" id="cellule4" onclick="caseJouee(4)"></td>
-            <td class="cell" id="cellule5" onclick="caseJouee(5)"></td>
-        </tr>
-        <tr>
-            <td class="cell" id="cellule6" onclick="caseJouee(6)"></td>
-            <td class="cell" id="cellule7" onclick="caseJouee(7)"></td>
-            <td class="cell" id="cellule8" onclick="caseJouee(8)"></td>
-        </tr>
+      <h1>TIC TAC TOE</h1>
+      <tr>
+        <td class="cell" id="cellule0" onclick="caseJouee(0)"></td>
+        <td class="cell" id="cellule1" onclick="caseJouee(1)"></td>
+        <td class="cell" id="cellule2" onclick="caseJouee(2)"></td>
+      </tr>
+      <tr>
+        <td class="cell" id="cellule3" onclick="caseJouee(3)"></td>
+        <td class="cell" id="cellule4" onclick="caseJouee(4)"></td>
+        <td class="cell" id="cellule5" onclick="caseJouee(5)"></td>
+      </tr>
+      <tr>
+        <td class="cell" id="cellule6" onclick="caseJouee(6)"></td>
+        <td class="cell" id="cellule7" onclick="caseJouee(7)"></td>
+        <td class="cell" id="cellule8" onclick="caseJouee(8)"></td>
+      </tr>
     </table>
 
     <script>
-        var tour = 'X';
-        var matrice = [ [' ',' ',' '],
-                        [' ',' ',' '],
-                        [' ',' ',' ']
-                    ]; 
-        
-        /**
-         * Affiche X ou O sur la case 
-         **/
-        function afficheTour(i, j, tour) {
-            //let i = 1;
-            //let j = 2;
-            let cell = i * 3 + j;
-            let id_cellule = 'cellule' + cell;
 
-            let case_ = document.getElementById(id_cellule);
-            case_.innerText = tour;
+      var tour = "X";
+      var matrice = [
+        [" ", " ", " "],
+        [" ", " ", " "],
+        [" ", " ", " "],
+      ];
 
-            // devoir
-            // faire un traitement pour tout i, j de la matrice
-            // et mettre dans la case_ la valeur de matrice[i][j]
+      /**
+       * Affiche X ou O sur la case
+       **/
+      function afficheTour(i, j, tour) {
+        let cell = i * 3 + j;
+        let id_cellule = "cellule" + cell;
+
+        let case_ = document.getElementById(id_cellule);
+        case_.innerText = tour;
+      }
+
+      /**
+       * Après le tour change de joueur
+       **/
+      function changeJoueur(tour) {
+        if (tour === "X") {
+          return "O";
+        } else {
+          return "X";
+        }
+      }
+
+      /**
+       * Enregistre dans la matrice le tour et change de joueur
+       **/
+      function caseJouee(cell) {
+        let i = Math.trunc(cell / 3);
+        let j = cell % 3;
+        // Sachant l'indice i,j => matrice[i][j]= X/O selon le tour
+        console.log("indices de la case jouée:", i, j);
+
+        // Enregistre X ou O dans la matrice (array)
+        if (matrice[i][j] === " ") {
+          matrice[i][j] = tour;
+        }
+        console.log(matrice);
+
+        // Affiche le tour sur la case
+        afficheTour(i, j, tour);
+        tour = changeJoueur(tour);
+
+        verifieCaseLigne("X");
+        verifieCaseLigne("O");
+        verifieCaseColonne("X");
+        verifieCaseColonne("O");
+        verifieCaseDiagonale();
+      }
+
+      /**
+       * Vérifie la case (en ligne)
+       * compteur mis en place (ou mettre marqueur true/false)
+       **/
+      function verifieCaseLigne(symbole) {
+        for (let i = 0; i < matrice.length; i++) {
+          compteur = 0;
+
+          // Vérifie chaque ligne et incremente compteur si case case jouée X ou O
+          for (let j = 0; j < matrice[i].length; j++) {
+            if (matrice[i][j] === symbole) compteur++;
+          }
+          if (compteur === 3) {
+            console.log(symbole, " gagne");
+            alert(`le joueur ${symbole} a gagné !`)
+            return symbole;
+          } else return " ";
+        }
+      }
+
+      /**
+       * Vérifie la case (en colonne) 
+       * param X ou O 
+       **/
+      function verifieCaseColonne(symbole) {
+        // deplacement de colonne en colonne 
+        for (let j = 0; j < matrice.length; j++) {
+          compteur = 0;
+          // vérifie chaque case 
+          for (let i = 0; i < matrice[j].length; i++) {
+            if (matrice[i][j] === symbole) compteur++;
+          }
+          if (compteur === 3) {
+            console.log(symbole, " gagne");
+            alert(`le joueur ${symbole} a gagné !`)
+            return symbole;
+          } else return " ";
+        }
+      }
+
+      /**
+       * Vérifie chaque case (en diagonale) 
+       * 
+       **/
+      function verifieCaseDiagonale() {
+        compteurX = 0;
+        compteurO = 0;
+
+        // Vérifie la 1re diagonale 
+        // 00 11 22 => i,i (j = i)
+        for (let i = 0; i < matrice.length; i++) {
+          if (matrice[i][i] === "X") {
+            compteurX++;
+          } else if (matrice[i][i] === "O") {
+            compteurO++;
+          }
+        }
+        if (compteurX === 3) {
+          console.log("X gagne");
+          alert(`le joueur X a gagné !`)
+          return "X";
+        } else if (compteurO === 3) {
+          console.log("O gagne");
+          alert(`le joueur O a gagné !`)
+          return "O";
         }
 
-        /**
-         * Après le tour change de joueur 
-         **/
-        function changeJoueur(tour) {
-            if (tour === 'X') {
-                return 'O'; 
-            } else {
-                return 'X'; 
-            }
+        // Vérifie la diagonale inverse 
+        // 02 11 20 => i, 2-i (j = 2-i)
+        compteurX = 0;
+        compteurO = 0;
+        for (let i = 0; i < matrice.length; i++) {
+          if (matrice[i][2 - i] === "X") {
+            compteurX++;
+          } else if (matrice[i][2 - i] === "O") {
+            compteurO++;
+          }
         }
-       
-        /**
-         * Enregistre dans la matrice le tour et change de joueur
-         **/
-        function caseJouee(cell) {
-            let i = Math.trunc(cell/3); 
-            let j = cell % 3;
-            // sachant l'indice i,j => matrice[i][j]= X/O selon le tour
-            console.log("indices de la case jouée:", i, j); 
-
-            // enregistre X ou O dans la matrice (array)
-            if (matrice[i][j] === ' ') {
-                matrice[i][j] = tour; 
-            }
-            console.log(matrice);
-
-            // Affiche le tour sur la case
-            afficheTour(i, j, tour);
-            tour = changeJoueur(tour); 
+        if (compteurX === 3) {
+          console.log("X gagne");
+          alert(`le joueur X a gagné !`)
+          return "X";
+        } else if (compteurO === 3) {
+          console.log("O gagne");
+          alert(`le joueur O a gagné !`)
+          return "O";
         }
+      }
 
+
+      //devoir : solution optimum
+      // combinaison = ["XOX","ligne2","ligne3","colone1","colone2","colone3","diag1","diag2"]
+      // if in_array("XXX",combinaison)
+      // if in_array("OOO",combinaison)
     </script>
-</body>
+  </body>
 </html>
+
