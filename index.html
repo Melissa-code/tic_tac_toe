@@ -8,155 +8,33 @@
   </head>
 
   <body>
-    <table>
-      <h1>TIC TAC TOE</h1>
-      <div id="gagnant"></div>
-      <tr>
-        <td class="cell" id="cellule0" onclick="caseJouee(0)"></td>
-        <td class="cell" id="cellule1" onclick="caseJouee(1)"></td>
-        <td class="cell" id="cellule2" onclick="caseJouee(2)"></td>
-      </tr>
-      <tr>
-        <td class="cell" id="cellule3" onclick="caseJouee(3)"></td>
-        <td class="cell" id="cellule4" onclick="caseJouee(4)"></td>
-        <td class="cell" id="cellule5" onclick="caseJouee(5)"></td>
-      </tr>
-      <tr>
-        <td class="cell" id="cellule6" onclick="caseJouee(6)"></td>
-        <td class="cell" id="cellule7" onclick="caseJouee(7)"></td>
-        <td class="cell" id="cellule8" onclick="caseJouee(8)"></td>
-      </tr>
-    </table>
+    <div>
+      <table>
+        <h1>TIC TAC TOE</h1>
+        <!-- Display the winner -->
+        <div id="gagnant"></div>
+        <!-- Game grid -->
+        <tr>
+          <td class="cell" id="cellule0" onclick="caseJouee(0)"></td>
+          <td class="cell" id="cellule1" onclick="caseJouee(1)"></td>
+          <td class="cell" id="cellule2" onclick="caseJouee(2)"></td>
+        </tr>
+        <tr>
+          <td class="cell" id="cellule3" onclick="caseJouee(3)"></td>
+          <td class="cell" id="cellule4" onclick="caseJouee(4)"></td>
+          <td class="cell" id="cellule5" onclick="caseJouee(5)"></td>
+        </tr>
+        <tr>
+          <td class="cell" id="cellule6" onclick="caseJouee(6)"></td>
+          <td class="cell" id="cellule7" onclick="caseJouee(7)"></td>
+          <td class="cell" id="cellule8" onclick="caseJouee(8)"></td>
+        </tr>
+      </table>
+      <!-- Reset button -->
+      <button id="reset-btn" onclick="reinitialiserJeu()">Réinitialiser</button>
+    </div>
 
-    <script>
-
-      var tour = "X";
-      var matrice = [
-        [" ", " ", " "],
-        [" ", " ", " "],
-        [" ", " ", " "],
-      ];
-
-      /**
-       * Affiche X ou O sur la case
-       **/
-      function afficheTour(i, j, tour) {
-        let cell = i * 3 + j;
-        let id_cellule = "cellule" + cell;
-
-        let case_ = document.getElementById(id_cellule);
-        case_.innerText = tour;
-      }
-
-      /**
-       * Après le tour change de joueur
-       **/
-      function changeJoueur(tour) {
-        if (tour === "X") {
-          return "O";
-        } else {
-          return "X";
-        }
-      }
-
-      /**
-       * Enregistre les 8 combinaisons jouées à partir de la matrice 
-       * dans array combinaisons 
-       **/
-       function enregistrerCombinaisonsJouees(matrice) {
-        let combinaisons = [];
-
-        // Enregistre les 3 lignes dans combinaisons[] 
-        for (let i = 0; i < matrice.length; i++) {
-          combinaisons.push(matrice[i].join(""));
-        }
-
-        // Enregistre les 3 colonnes dans combinaisons[]
-        for (let j = 0; j < matrice.length; j++) {
-          let colonne = "";
-          for (let i = 0; i < matrice.length; i++) {
-            colonne += matrice[i][j];
-          }
-          combinaisons.push(colonne);
-        }
-
-        // Enregistre les 2 diagonales dans combinaisons[]
-        let diagonale1 = "";
-        let diagonale2 = "";
-        for (let i = 0; i < matrice.length; i++) {
-          diagonale1 += matrice[i][i];
-          diagonale2 += matrice[i][2 - i];
-        }
-        combinaisons.push(diagonale1);
-        combinaisons.push(diagonale2);
-
-        return combinaisons;
-      }
-
-      /**
-       * Réinitialise le jeu 
-       * Vider la matrice 
-       * Effacer le tour X ou O sur les cases 
-       **/
-       function reinitialiserJeu() {
-        matrice = [
-          [" ", " ", " "],
-          [" ", " ", " "],
-          [" ", " ", " "],
-        ];
-        for (let i = 0; i < 9; i++) {
-          document.getElementById("cellule" + i).innerText = "";
-        }
-      }
-
-      /**
-       * Affiche le gagnant 
-       * Puis réinitilise le jeu à zéro 
-       * 
-       **/
-      function afficherGagnant(combinaisons, combinaison) {
-        if (combinaisons.includes(combinaison)) {
-          let symbole = combinaison.slice(0, -2);
-          divGagnant.innerText = `Le joueur ${symbole} a gagné!`;
-          
-          // Réinitilise le jeu à zero 
-          setTimeout(function() {
-            divGagnant.innerText = "";
-            reinitialiserJeu();
-          }, 2000);
-        } 
-      }
-
-      /**
-       * Enregistre dans la matrice le tour et change de joueur
-       **/
-      function caseJouee(cell) {
-        let i = Math.trunc(cell / 3);
-        let j = cell % 3;
-        // Sachant l'indice i,j => matrice[i][j]= X/O selon le tour
-        console.log("indices de la case jouée:", i, j);
-
-        // Enregistre X ou O dans la matrice (array)
-        if (matrice[i][j] === " ") {
-          matrice[i][j] = tour;
-        }
-        console.log(matrice);
-
-        // Affiche le tour sur la case
-        afficheTour(i, j, tour);
-        tour = changeJoueur(tour);
-
-        // Générer les combinaisons jouées à partir de la matrice
-        divGagnant = document.getElementById("gagnant"); 
-        let combinaisons = enregistrerCombinaisonsJouees(matrice);
-        console.log("Combinaisons jouées:", combinaisons);
-
-        // Vérifie si la chaîne "XXX" ou "OOO" existe dans le tableau combinaisons
-        afficherGagnant(combinaisons, "XXX") ;
-        afficherGagnant(combinaisons, "OOO") ;
-      }
-
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
 

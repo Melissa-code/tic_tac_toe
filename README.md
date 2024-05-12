@@ -1,7 +1,14 @@
 # Tic Tac Toe game
 
+Le Tic Tac Toe est un jeu pour deux joueurs joué sur une grille 3x3. Le but du jeu est d'aligner trois de ses symboles (habituellement "X" ou "O") horizontalement, verticalement ou en diagonale, avant l'adversaire.
+
+Ce jeu a été programmé en JavaScript. 
+
+Jouer à ce jeu: (tic_tac_toe)[https://tic-tac-toe-kappa-weld.vercel.app/]
+
 
 ## 1. Créer la matrice qui va stocker les valeurs
+- tableau à 2 dimensions
 
 
 ## 2. Créer la fonction caseJouee() 
@@ -43,37 +50,44 @@ A l'inverse si l'on connaît les indices i et j :
 
 
 ## 4. Créer la fonction changeJoueur() 
-- change de joueur après le tour 
+- Change de joueur après le tour 
 
 
-## 5. Vérifier chaque ligne pour afficher le gagnant 
-- Mise en place un compteur 
-- Parcours de la matrice et de chaque ligne 
-- Si une ligne contient 3 X  à la suite ou O, affiche le gagnant 
+## 5. Créer la function enregistrerCombinaisonsJouees(matrice) pour optimiser le code 
+- Enregistre les 8 combinaisons possibles dans un tableau combinaisons 
+
+### 5-1. Ajout des 3 lignes au tableau combinaisons
+- Parcours de chaque ligne de la matrice  
+- Ajoute la combinaison des 3 lignes (string) dans le tableau combinaisons 
 
 
-## 6. Vérifier chaque colonne pour afficher le gagnant 
-- Mise en place un compteur 
-- Parcours de la matrice et de chaque colonne (inverse j et i dans les boucles for)
-- Si une colonne contient 3 X  à la suite ou O, affiche le gagnant 
+### 5-2. Ajout des 3 colonnes au tableau combinaisons
+- Parcours de chaque colonne la matrice (inverse j et i dans les boucles for)
+- Ajoute la combinaison des 3 colonnes dans le tableau combinaisons 
 
 
-## 7. Vérifier les 2 diagonales pour afficher le gagnant 
-- Mise en place de 2 compteurs X et O 
-- Parcours de la matrice et de chaque ligne 
+### 5-3. Ajout des 2 diagonales au tableau combinaisons
+- Parcours chaque ligne de la matrice 
 - 1re diagonale: `00 11 22 => i,i (j = i) donc if (matrice[i][i] === "X")`
 - 2e diagonale : `02 11 20 => i, 2-i (j = 2-i) donc if (matrice[i][2 - i] === "X")`
-- Si une ligne contient 3 X  à la suite ou O, affiche le gagnant 
+- Ajoute la combinaison des 2 diagonales dans le tableau combinaisons 
 
 
-## 8. Créer la function enregistrerCombinaisonsJouees(matrice) pour optimiser le code 
-- Enregistre les 8 combinaisons possible dans un tableau combinaisons 
+## 6. Ajout d'une variable globale booléenne `jeuTermine` 
+- pour réinitiliser le jeu au clic sur le bouton 
 
 
-## 9. Créer la function afficherGagnant()
-- Vérifie si la combinaison "XXX" ou "OOO" (string) est dans combinaisons (array)
-- Si oui affiche un message annpnçant le gagnant 
-- Puis réinitialisation du jeu (vide la matrice et effece le tour sur les cases)
+## 7. Créer la function afficherGagnant()
+- Vérifie si la combinaison "XXX" ou "OOO" (string) est dans le tableau combinaisons 
+- Si oui affiche un message annonçant le gagnant 
+- Et vérouille le jeu (le joueur suivant ne peut plus jouer): `if (jeuTermine) return;`
+
+
+## 8. créer une fonction verifieMatriceRemplie() 
+- pour pouvoir afficher un message s'il n'y a aucun gagnant
+
+
+
 
 
 
