@@ -4,7 +4,7 @@ Le Tic Tac Toe est un jeu pour deux joueurs joué sur une grille 3x3. Le but du 
 
 Ce jeu a été programmé en JavaScript. 
 
-Jouer à ce jeu: (tic_tac_toe)[https://tic-tac-toe-kappa-weld.vercel.app/]
+Jouer à ce jeu: [tic_tac_toe](https://tic-tac-toe-kappa-weld.vercel.app/)
 
 
 ## 1. Créer la matrice qui va stocker les valeurs

@@ -122,6 +122,12 @@ function caseJouee(cell) {
   // Sachant l'indice i,j => matrice[i][j]= X/O selon le tour
   console.log("indices de la case jouée:", i, j);
 
+  // Vérouille case est déjà remplie
+  if (matrice[i][j] !== " ") {
+    console.log("Case déjà remplie, choix invalide !");
+    return; 
+  }
+
   // Enregistre X ou O dans la matrice (array)
   if (matrice[i][j] === " ") {
     matrice[i][j] = tour;
