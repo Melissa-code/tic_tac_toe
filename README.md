@@ -5,13 +5,17 @@
 
 - Ce jeu est programmé en JavaScript et déployé sur Vercel.
 
-- Jouer à ce jeu: [tic_tac_toe](https://tic-tac-toe-kappa-weld.vercel.app/)
+- [Jouer à tic tac toe](https://tic-tac-toe-kappa-weld.vercel.app/)
 
 
-<table>
+<table style="border-collapse: collapse;">
   <tr>
-    <td><img src="./images/morpion_desktop.svg" alt="Aperçu du jeu desktop" /></td>
-    <td><img src="./images/morpion_mobile.svg" alt="Aperçu du jeu mobile" /></td>
+    <td style="padding: 0; border: none;">
+      <img src="./images/morpion_desktop.svg" alt="Aperçu du jeu desktop" />
+    </td>
+    <td style="padding: 0; border: none;">
+      <img src="./images/morpion_mobile.svg" alt="Aperçu du jeu mobile" />
+    </td>
   </tr>
 </table>
 
