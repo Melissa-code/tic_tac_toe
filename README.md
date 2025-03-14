@@ -6,8 +6,8 @@ Ce jeu est programmé en JavaScript et déployé sur Vercel.
 
 Jouer à ce jeu: [tic_tac_toe](https://tic-tac-toe-kappa-weld.vercel.app/)
 
-<img src="images/morpion_desktop.png" style="width: 500px"; alt="Aperçu du jeu desktop" /> 
-<img src="images/morpion_mobile.png" style="width: 500px"; alt="Aperçu du jeu mobile" /> 
+<img src="./images/morpion_desktop.png" style="width: 400px;" alt="Aperçu du jeu desktop" /> 
+<img src="./images/morpion_mobile.png" style="width: 400px;" alt="Aperçu du jeu mobile" /> 
 
 ---
 
@@ -31,17 +31,19 @@ Jouer à ce jeu: [tic_tac_toe](https://tic-tac-toe-kappa-weld.vercel.app/)
 ```
 git clone https://github.com/Melissa-code/tic_tac_toe
 cd tic_tac_toe
-```
 Ouvrir le fichier index.html dans le navigateur
+```
 ---
 
 ## 4. Structure du projet
 
+```
 📂 tic-tac-toe/
  ┣ 📜 index.html       # Structure de la page HTML
  ┣ 📜 style.css        # Mise en forme de la grille et des éléments
  ┣ 📜 script.js        # Logique du jeu : gestion des tours, détection du gagnant, etc.
  ┗ 📜 README.md        # Documentation du projet
+ ```
 ---
 
 ## 5. Author
@@ -54,6 +56,7 @@ Ouvrir le fichier index.html dans le navigateur
 
 ### 6.1. Créer la matrice qui va stocker les valeurs
 - Un tableau à 2 dimensions représente la grille de jeu
+
 
 ### 6.2. Créer la fonction `caseJouee()`
 - enregistre le symbole du joueur ("X" ou "O") dans la matrice et change de joueur
@@ -71,13 +74,16 @@ Ouvrir le fichier index.html dans le navigateur
 - Soit : `i = Math.trunc(cell/3)` retourne la partie entiere d'un nombre (pour ligne)
 - Soit : `j = cell % 3` ex: cell8:`8/3=2 reste 2` ou cell 3:`3/3=1 reste 0` (pour colonne)
 
+
 ### 6.3. Créer la fonction `afficheTour()`
 - affiche X ou 0 sur la case 
 - A l'inverse si l'on connaît les indices i et j : 
 `cell = i*3+j`
 
+
 ### 6.4. Créer la fonction `changeJoueur()` 
 - Elle alterne entre les joueurs après chaque tour 
+
 
 ### 6.5. Créer la function `enregistrerCombinaisonsJouees(matrice)` pour optimiser le code 
 - Cette fonction permet de suivre les 8 combinaisons possibles à partir de la matrice du jeu:
@@ -99,13 +105,16 @@ Diagonales: Ajoute les 2 diagonales à l'array combinaisons[]
 - 2e diagonale : `02 11 20 => i, 2-i (j = 2-i) donc if (matrice[i][2 - i] === "X")`
 - Ajoute la combinaison des 2 diagonales dans le tableau combinaisons 
 
+
 ### 6.6. Ajout d'une variable globale booléenne `jeuTermine` 
 - Elle est utilisée pour empêcher les joueurs de jouer une fois la partie terminée
+
 
 ### 6.7. Créer la function `afficherGagnant()`
 - Elle vérifie si la combinaison "XXX" ou "OOO" (string) est dans le tableau combinaisons 
 - Si oui elle affiche un message annonçant le gagnant 
 - Et vérouille le jeu (le joueur suivant ne peut plus jouer): `if (jeuTermine) return;`
+
 
 ### 6.8. créer une fonction `verifieMatriceRemplie() `
 - Elle vérifie si toutes les cases sont remplies 
