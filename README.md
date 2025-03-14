@@ -7,8 +7,14 @@
 
 - Jouer à ce jeu: [tic_tac_toe](https://tic-tac-toe-kappa-weld.vercel.app/)
 
-<img src="./images/morpion_desktop.svg" alt="Aperçu du jeu desktop" /> 
-<img src="./images/morpion_mobile.svg" alt="Aperçu du jeu mobile" /> 
+
+<table>
+  <tr>
+    <td><img src="./images/morpion_desktop.svg" alt="Aperçu du jeu desktop" /></td>
+    <td><img src="./images/morpion_mobile.svg" alt="Aperçu du jeu mobile" /></td>
+  </tr>
+</table>
+
 
 ---
 
