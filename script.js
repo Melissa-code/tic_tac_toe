@@ -102,7 +102,7 @@ function verifieMatriceRemplie(matrice) {
   for (let i = 0; i < matrice.length; i++) {
     for (let j = 0; j < matrice[i].length; j++) {
       if (matrice[i][j] === " ") {
-        console.log("matrice non remplie")
+        
         return false;
       } 
     }
@@ -112,19 +112,19 @@ function verifieMatriceRemplie(matrice) {
 
 /**
  * Enregistre dans la matrice le tour et change de joueur
+ * Vérouille le jeu 
  **/
-// Vérouille le jeu 
 function caseJouee(cell) {
   if (jeuTermine) return;
   
   let i = Math.trunc(cell / 3);
   let j = cell % 3;
   // Sachant l'indice i,j => matrice[i][j]= X/O selon le tour
-  console.log("indices de la case jouée:", i, j);
+  //console.log("indices de la case jouée:", i, j);
 
   // Vérouille case est déjà remplie
   if (matrice[i][j] !== " ") {
-    console.log("Case déjà remplie, choix invalide !");
+   
     return; 
   }
 
@@ -132,7 +132,6 @@ function caseJouee(cell) {
   if (matrice[i][j] === " ") {
     matrice[i][j] = tour;
   }
-  console.log(matrice);
 
   // Affiche le tour sur la case
   afficheTour(i, j, tour);
@@ -141,7 +140,6 @@ function caseJouee(cell) {
   // Générer les combinaisons jouées à partir de la matrice
   divGagnant = document.getElementById("gagnant"); 
   let combinaisons = enregistrerCombinaisonsJouees(matrice);
-  console.log("Combinaisons jouées:", combinaisons);
 
   // Vérifie si la chaîne "XXX" ou "OOO" existe dans le tableau combinaisons
   afficherGagnant(combinaisons, "XXX") ;
